@@ -48,3 +48,12 @@ outputType = "webview"
 [[ports]]
 localPort = 5000
 externalPort = 80
+
+[[ports]]
+localPort = 33837
+externalPort = 3000
+
+[deployment]
+deploymentTarget = "autoscale"
+run = ["bash", "-c", "cd client && npm run build && cd .. && cd server && node index.js"]
+build = ["bash", "-c", "cd client && npm install && cd ../server && npm install"]

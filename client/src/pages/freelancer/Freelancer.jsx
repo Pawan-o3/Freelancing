@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import '../../styles/freelancer/freelancer.css'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { API_BASE_URL } from '../../config/api';
 
 
 const Freelancer = () => {
@@ -27,7 +28,7 @@ const Freelancer = () => {
   },[])
 
   const fetchUserData = async(id) =>{
-      axios.get(`http://localhost:5500/fetch-freelancer/${id}`).then(
+      axios.get(`${API_BASE_URL}/fetch-freelancer/${id}`).then(
         (response)=>{
           setFreelancerData(response.data);
           if(response.data){
@@ -42,7 +43,7 @@ const Freelancer = () => {
   }
 
   const updateUserData = async() =>{
-    axios.post(`http://localhost:5500/update-freelancer`, {freelancerId, updateSkills: updateSkills, description: updateDescription}).then(
+    axios.post(`${API_BASE_URL}/update-freelancer`, {freelancerId, updateSkills: updateSkills, description: updateDescription}).then(
         (response)=>{
           fetchUserData();
           alert("User data updated")
@@ -58,7 +59,7 @@ const Freelancer = () => {
   },[])
 
   const fetchApplications = async() =>{
-    await axios.get("http://localhost:5500/fetch-applications").then(
+    await axios.get(`${API_BASE_URL}/fetch-applications`).then(
       (response)=>{
         setApplicationsCount(response.data.filter((application)=> application.freelancerId === localStorage.getItem('userId')));
         console.log(response.data);

@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import '../../styles/admin/allUsers.css'
+import { API_BASE_URL } from '../../config/api';
 
 const AllUsers = () => {
 
   const [users, setUsers] = useState([]);
 
   const fetchUsers = async() =>{
-    await axios.get("http://localhost:5500/fetch-users").then(
+    await axios.get(`${API_BASE_URL}/fetch-users`).then(
       (response)=>{
           setUsers(response.data);
       }

@@ -7,7 +7,7 @@ export const GeneralContext = createContext();
 
 const GeneralContextProvider = ({children}) => {
 
-  const WS = 'http://localhost:5500';
+  const WS = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5500';
 
   const socket = socketIoClient(WS);
 
@@ -25,7 +25,7 @@ const GeneralContextProvider = ({children}) => {
   const login = async () =>{
     try{
       const loginInputs = {email, password}
-        await axios.post('http://localhost:5500/login', loginInputs)
+        await axios.post(`${WS}/login`, loginInputs)
         .then( async (res)=>{
 
           localStorage.setItem('userId', res.data._id);
@@ -53,7 +53,7 @@ const GeneralContextProvider = ({children}) => {
 
   const register = async () =>{
     try{
-        await axios.post('http://localhost:5500/register', inputs)
+        await axios.post(`${WS}/register`, inputs)
         .then( async (res)=>{
             localStorage.setItem('userId', res.data._id);
             localStorage.setItem('usertype', res.data.usertype);

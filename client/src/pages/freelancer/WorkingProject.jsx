@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import '../../styles/freelancer/WorkingProject.css'; // Optional, if you want styles
+import '../../styles/freelancer/WorkingProject.css';
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from '../../config/api';
 
 const WorkingProject = () => {
   const [projects, setProjects] = useState([]);
@@ -13,7 +14,7 @@ const WorkingProject = () => {
 
   const fetchAssignedProjects = async () => {
     try {
-      const res = await axios.get('http://localhost:5500/fetch-projects', {
+      const res = await axios.get(`${API_BASE_URL}/fetch-projects`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },

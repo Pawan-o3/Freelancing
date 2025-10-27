@@ -32,9 +32,10 @@ io.on("connection", (socket) =>{
 })
 
 
-const PORT =5500;
+const PORT = process.env.PORT || 5500;
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/Freelancing';
 
-mongoose.connect('mongodb://localhost:27017/Freelancing',{
+mongoose.connect(MONGODB_URI,{
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(()=>{
@@ -401,7 +402,7 @@ mongoose.connect('mongodb://localhost:27017/Freelancing',{
     })
 
 
-    server.listen(PORT, ()=>{
-        console.log(`Running @ ${PORT}`);
+    server.listen(PORT, 'localhost', ()=>{
+        console.log(`Server running on localhost:${PORT}`);
     });
 }).catch((e)=> console.log(`Error in db connection ${e}`));
